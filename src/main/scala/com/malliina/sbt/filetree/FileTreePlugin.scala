@@ -3,6 +3,7 @@ package com.malliina.sbt.filetree
 import java.nio.charset.StandardCharsets
 
 import com.malliina.sbt.filetree.FileTreeKeys.{fileTreeMapper, fileTreePackageName, fileTreeSource}
+import com.malliina.sbt.filetree.ScalaIdentifiers.legalName
 import sbt.Keys.{sourceGenerators, sourceManaged}
 import sbt._
 import sbt.plugins.JvmPlugin
@@ -53,8 +54,9 @@ object FileTreePlugin extends sbt.AutoPlugin {
 
   def makeDir(dir: File): String = {
     val inner = members(dir)
+    val objName = legalName(dir.base)
     s"""
-       |object ${dir.base} extends Dir("${dir.base}/") {
+       |object $objName extends Dir("${dir.base}/") {
        |$inner
        |}
     """.stripMargin.trim + IO.Newline
@@ -63,8 +65,10 @@ object FileTreePlugin extends sbt.AutoPlugin {
   def makeDefs(files: Seq[File]) =
     files.map(makeFile).mkString(IO.Newline)
 
-  def makeFile(file: File) =
-    s"""def ${file.base}: T = map(prefix + "${file.getName}")"""
+  def makeFile(file: File) = {
+    val defName = legalName(file.base)
+    s"""def $defName: T = map(prefix + "${file.getName}")"""
+  }
 
   def destDir(base: File, packageName: String): File =
     packageName.split('.').foldLeft(base)((acc, part) => acc / part)
