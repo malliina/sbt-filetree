@@ -30,11 +30,13 @@ references the file will no longer compile.
 
 ## Installation
 
-Add the plugins in `plugins.sbt`:
+Add the following settings in `plugins.sbt`:
 
+    resolvers += Resolver.url("malliina bintray sbt", url("https://dl.bintray.com/malliina/sbt-plugins/"))(Resolver.ivyStylePatterns)
+    
     addSbtPlugin("com.malliina" % "sbt-filetree" % "0.0.1")
 
-Add `FileTreePlugin` to your project:
+Enable `FileTreePlugin` in your project:
 
     val myProject = Project("demo", file("."))
       .enablePlugins(com.malliina.sbt.filetree.FileTreePlugin)
@@ -53,4 +55,3 @@ function that transforms each file path:
     fileTreeMapper := "com.malliina.Code.transform"
     
 Where `transform` is an unary function of type `String => T`.
-
