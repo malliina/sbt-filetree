@@ -45,10 +45,12 @@ Specify the source directory for the file tree traversal:
 
     fileTreeSource := resourceDirectory.value
     
+Now when you `compile`, the build generates source code that defines an object `AppAssets`.
+
 Optionally configure the package name for the generated source file:
 
     fileTreePackageName := "com.malliina.assets"
-    
+        
 By default, each file path is represented as a `String`. You can supply a 
 function that transforms each file path:
 
