@@ -34,26 +34,24 @@ Add the following settings in `plugins.sbt`:
 
     resolvers += Resolver.url("malliina bintray sbt", url("https://dl.bintray.com/malliina/sbt-plugins/"))(Resolver.ivyStylePatterns)
     
-    addSbtPlugin("com.malliina" % "sbt-filetree" % "0.0.1")
+    addSbtPlugin("com.malliina" % "sbt-filetree" % "0.0.4")
 
 Enable `FileTreePlugin` in your project:
 
     val myProject = Project("demo", file("."))
       .enablePlugins(com.malliina.sbt.filetree.FileTreePlugin)
 
-Specify the source directory for the file tree traversal:
+Specify the source directories for the file tree traversal and corresponding destination objects to write:
 
-    fileTreeSource := resourceDirectory.value
+    import com.malliina.sbt.filetree.DirMap
+    fileTreeSources += DirMap(baseDirectory.value / "appfiles", "com.malliina.filetree.AppFiles")
     
-Now when you `compile`, the build generates source code that defines an object `AppAssets`.
+Now when you `compile`, the build generates source code that defines an object `com.malliina.filetree.AppFiles`,
+where each member is a file or directory under `baseDirectory / appfiles`.
 
-Optionally configure the package name for the generated source file:
+By default, each file path is represented as a `String`. You can supply a function as a third paramater to a 
+`DirMap` that transforms each file path:
 
-    fileTreePackageName := "com.malliina.assets"
-        
-By default, each file path is represented as a `String`. You can supply a 
-function that transforms each file path:
-
-    fileTreeMapper := "com.malliina.Code.transform"
+    DirMap(baseDirectory.value / "appfiles", "com.malliina.filetree.AppFiles", "com.malliina.Code.transform")
     
-Where `transform` is an unary function of type `String => T`.
+Where `transform` is a unary function of type `String => T`.

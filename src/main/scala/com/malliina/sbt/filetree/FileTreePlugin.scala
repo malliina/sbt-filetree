@@ -12,6 +12,7 @@ object FileTreePlugin extends sbt.AutoPlugin {
   override def requires = JvmPlugin
 
   override def projectSettings: Seq[Setting[_]] = Seq(
+    fileTreeSources := Nil,
     sourceGenerators in Compile += Def.task {
       val dest = (sourceManaged in Compile).value
       fileTreeSources.value flatMap { mapping =>
@@ -22,7 +23,7 @@ object FileTreePlugin extends sbt.AutoPlugin {
 
   val autoImport = FileTreeKeys
 
-  def makeSources(mapping: DirectoryMapping, destBase: File): Seq[File] = {
+  def makeSources(mapping: DirMap, destBase: File): Seq[File] = {
     val packageName = mapping.packageName
     val className = mapping.className
     val mapFunc = mapping.mapFunc
