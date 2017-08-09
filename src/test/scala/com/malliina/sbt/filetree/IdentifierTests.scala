@@ -21,6 +21,10 @@ class IdentifierTests extends FunSuite with ScalaIdentifiers {
   }
 
   test("worst case scenario") {
-    assert(legalName("for_some") === "`forSome`")
+    assert(legalName("for_some") === "for_some")
+  }
+
+  test("legality") {
+    assert(legalName("app-5.newest") === "app_5_newest")
   }
 }

@@ -2,7 +2,7 @@ package com.malliina.sbt.filetree
 
 import java.nio.charset.StandardCharsets
 
-import com.malliina.sbt.filetree.FileTreeKeys.{fileTreeMapper, fileTreePackageName, fileTreeSource}
+import com.malliina.sbt.filetree.FileTreeKeys.fileTreeSources
 import com.malliina.sbt.filetree.ScalaIdentifiers.legalName
 import sbt.Keys.{sourceGenerators, sourceManaged}
 import sbt._
@@ -12,22 +12,21 @@ object FileTreePlugin extends sbt.AutoPlugin {
   override def requires = JvmPlugin
 
   override def projectSettings: Seq[Setting[_]] = Seq(
-    fileTreePackageName := "filetree",
-    fileTreeMapper := "identity",
     sourceGenerators in Compile += Def.task {
       val dest = (sourceManaged in Compile).value
-      makeSources(fileTreeSource.value, dest, fileTreePackageName.value, fileTreeMapper.value)
+      fileTreeSources.value flatMap { mapping =>
+        makeSources(mapping, dest)
+      }
     }.taskValue
   )
 
   val autoImport = FileTreeKeys
 
-  def makeSources(base: File,
-                  destBase: File,
-                  packageName: String,
-                  mapFunc: String): Seq[File] = {
-    val className = "AppAssets"
-    val inner = members(base)
+  def makeSources(mapping: DirectoryMapping, destBase: File): Seq[File] = {
+    val packageName = mapping.packageName
+    val className = mapping.className
+    val mapFunc = mapping.mapFunc
+    val inner = members(mapping.source)
     val content =
       s"""
          |package $packageName
