@@ -27,7 +27,7 @@ object FileTreePlugin extends sbt.AutoPlugin {
     val packageName = mapping.packageName
     val className = mapping.className
     val mapFunc = mapping.mapFunc
-    val inner = members(mapping.source)
+    val inner = members(mapping.source, "")
     val content =
       s"""
          |package $packageName
@@ -45,18 +45,19 @@ object FileTreePlugin extends sbt.AutoPlugin {
     Seq(destFile)
   }
 
-  def members(dir: File): String = {
+  def members(dir: File, parent: String): String = {
     val paths = IO.listFiles(dir)
-    val dirs = paths.filter(_.isDirectory).map(makeDir).mkString("")
+    val dirs = paths.filter(_.isDirectory).map(dir => makeDir(dir, parent)).mkString("")
     val defs = makeDefs(paths.filter(_.isFile))
     Seq(dirs, defs).mkString(IO.Newline)
   }
 
-  def makeDir(dir: File): String = {
-    val inner = members(dir)
+  def makeDir(dir: File, parent: String): String = {
+    val newParent = s"$parent${dir.base}/"
+    val inner = members(dir, newParent)
     val objName = legalName(dir.base)
     s"""
-       |object $objName extends Dir("${dir.base}/") {
+       |object $objName extends Dir("$newParent") {
        |$inner
        |}
     """.stripMargin.trim + IO.Newline
