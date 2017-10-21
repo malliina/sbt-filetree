@@ -8,7 +8,7 @@ import sbt.Keys.{sourceGenerators, sourceManaged}
 import sbt._
 import sbt.plugins.JvmPlugin
 
-object FileTreePlugin extends sbt.AutoPlugin {
+object FileTreePlugin extends AutoPlugin {
   override def requires = JvmPlugin
 
   override def projectSettings: Seq[Setting[_]] = Seq(

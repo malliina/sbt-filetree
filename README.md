@@ -34,7 +34,7 @@ Add the following settings in `plugins.sbt`:
 
     resolvers += Resolver.url("malliina bintray sbt", url("https://dl.bintray.com/malliina/sbt-plugins/"))(Resolver.ivyStylePatterns)
     
-    addSbtPlugin("com.malliina" % "sbt-filetree" % "0.0.4")
+    addSbtPlugin("com.malliina" % "sbt-filetree" % "0.2.0")
 
 Enable `FileTreePlugin` in your project:
 
