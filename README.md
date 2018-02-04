@@ -14,16 +14,16 @@ For example, given a directory with the following structure:
 The plugin generates (roughly) the following Scala object:
 
     object AppAssets {
-      def file1: String = "file1.jpg"
-      def file2: String = "file2.jpg"
+      def file1_jpg: String = "file1.jpg"
+      def file2_jpg: String = "file2.jpg"
       object sub {
-        def file3: String = "sub/file3.jpg"
+        def file3_jpg: String = "sub/file3.jpg"
       }
     }
     
 Now you can refer to a given file path without writing the string literal by hand:
 
-    AppAssets.sub.file3 // returns "sub/file3.jpg"
+    AppAssets.sub.file3_jpg // returns "sub/file3.jpg"
 
 Furthermore, if the file is deleted or moved from the file system, any code that
 references the file will no longer compile.

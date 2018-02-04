@@ -67,7 +67,7 @@ object FileTreePlugin extends AutoPlugin {
     files.map(makeFile).mkString(IO.Newline)
 
   def makeFile(file: File) = {
-    val defName = legalName(file.base)
+    val defName = legalName(file.name)
     s"""def $defName: T = map(prefix + "${file.getName}")"""
   }
 
