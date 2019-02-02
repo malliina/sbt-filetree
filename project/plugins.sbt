@@ -5,11 +5,7 @@ resolvers ++= Seq(
 )
 
 Seq(
-  "com.malliina" %% "sbt-utils" % "0.9.1",
-  "com.jsuereth" % "sbt-pgp" % "1.1.0",
-  "org.xerial.sbt" % "sbt-sonatype" % "2.0",
-  "com.github.gseitz" % "sbt-release" % "1.0.7",
-  "org.foundweekends" % "sbt-bintray" % "0.5.1"
+  "com.malliina" %% "sbt-utils-bintray" % "0.11.0"
 ) map addSbtPlugin
 
 def ivyResolver(name: String, urlStr: String) =
