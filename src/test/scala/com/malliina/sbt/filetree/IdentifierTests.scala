@@ -1,8 +1,8 @@
 package com.malliina.sbt.filetree
 
-import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.FunSuite
 
-class IdentifierTests extends AnyFunSuite with ScalaIdentifiers {
+class IdentifierTests extends FunSuite with ScalaIdentifiers {
   test("camelCase") {
     assert(camelCase("a-b") === "aB")
     assert(camelCase("raar_") === "raar_")
