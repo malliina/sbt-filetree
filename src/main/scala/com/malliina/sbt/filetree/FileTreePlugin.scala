@@ -11,13 +11,11 @@ import sbt.plugins.JvmPlugin
 object FileTreePlugin extends AutoPlugin {
   override def requires = JvmPlugin
 
-  override def projectSettings: Seq[Setting[_]] = Seq(
+  override def projectSettings: Seq[Setting[?]] = Seq(
     fileTreeSources := Nil,
-    sourceGenerators in Compile += Def.task {
-      val dest = (sourceManaged in Compile).value
-      fileTreeSources.value flatMap { mapping =>
-        makeSources(mapping, dest)
-      }
+    Compile / sourceGenerators += Def.task {
+      val dest = (Compile / sourceManaged).value
+      fileTreeSources.value flatMap { mapping => makeSources(mapping, dest) }
     }.taskValue
   )
 

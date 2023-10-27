@@ -3,7 +3,8 @@ package com.malliina.sbt.filetree
 import sbt.{File, settingKey}
 
 object FileTreeKeys {
-  val fileTreeSources = settingKey[Seq[DirMap]]("File tree source directories and generated objects")
+  val fileTreeSources =
+    settingKey[Seq[DirMap]]("File tree source directories and generated objects")
 }
 
 case class DirMap(source: File, destination: String, mapFunc: String = "identity") {

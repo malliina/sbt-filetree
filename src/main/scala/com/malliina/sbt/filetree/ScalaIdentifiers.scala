@@ -33,5 +33,5 @@ trait ScalaIdentifiers {
   }
 
   def replaced(in: String, illegal: List[Char], replacement: Char): String =
-    illegal.foldLeft(in) { (acc, illegal) => acc.replace(illegal, replacement) }
+    illegal.foldLeft(in)((acc, illegal) => acc.replace(illegal, replacement))
 }
