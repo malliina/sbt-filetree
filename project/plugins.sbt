@@ -1,7 +1,6 @@
-scalaVersion := "2.12.10"
+scalaVersion := "2.12.18"
 
 Seq(
-  "com.malliina" %% "sbt-utils-maven" % "0.15.7",
-  "ch.epfl.scala" % "sbt-bloop" % "1.4.0-RC1",
-  "org.scalameta" % "sbt-scalafmt" % "2.3.0"
+  "com.malliina" %% "sbt-utils-maven" % "1.6.19",
+  "org.scalameta" % "sbt-scalafmt" % "2.5.0"
 ) map addSbtPlugin

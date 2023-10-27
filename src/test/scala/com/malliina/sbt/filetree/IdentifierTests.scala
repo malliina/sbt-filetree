@@ -1,30 +1,28 @@
 package com.malliina.sbt.filetree
 
-import org.scalatest.FunSuite
-
-class IdentifierTests extends FunSuite with ScalaIdentifiers {
+class IdentifierTests extends munit.FunSuite with ScalaIdentifiers {
   test("camelCase") {
-    assert(camelCase("a-b") === "aB")
-    assert(camelCase("raar_") === "raar_")
+    assertEquals(camelCase("a-b"), "aB")
+    assertEquals(camelCase("raar_"), "raar_")
   }
 
   test("negative camelCase") {
-    assert(camelCase("blaaBlaa") === "blaaBlaa")
+    assertEquals(camelCase("blaaBlaa"), "blaaBlaa")
   }
 
   test("sanitize") {
-    assert(sanitize("class") === "`class`")
+    assertEquals(sanitize("class"), "`class`")
   }
 
   test("negative sanitize") {
-    assert(sanitize("huuhaa") === "huuhaa")
+    assertEquals(sanitize("huuhaa"), "huuhaa")
   }
 
   test("worst case scenario") {
-    assert(legalName("for_some") === "for_some")
+    assertEquals(legalName("for_some"), "for_some")
   }
 
   test("legality") {
-    assert(legalName("app-5.newest") === "app_5_newest")
+    assertEquals(legalName("app-5.newest"), "app_5_newest")
   }
 }
