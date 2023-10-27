@@ -31,10 +31,8 @@ references the file will no longer compile.
 ## Installation
 
 Add the following settings in `plugins.sbt`:
-
-    resolvers += Resolver.url("malliina bintray sbt", url("https://dl.bintray.com/malliina/sbt-plugins/"))(Resolver.ivyStylePatterns)
     
-    addSbtPlugin("com.malliina" % "sbt-filetree" % "0.2.0")
+    addSbtPlugin("com.malliina" % "sbt-filetree" % "0.4.1")
 
 Enable `FileTreePlugin` in your project:
 
