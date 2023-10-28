@@ -1,3 +1,5 @@
+# This has moved to https://github.com/malliina/sbt-utils
+
 # sbt-filetree
 
 This SBT plugin generates a Scala source file that represents the 
